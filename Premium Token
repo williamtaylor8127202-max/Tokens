@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract PremiumToken {
+    mapping(address => uint256) public balanceOf;
+    mapping(address => bool) public premium;
+
+    function addPremium(address user) external {
+        premium[user] = true;
+    }
+
+    function mintPremium(address to, uint256 amount) external {
+        require(premium[msg.sender], "Not premium");
+        balanceOf[to] += amount;
+    }
+}
